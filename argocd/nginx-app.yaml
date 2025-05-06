@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: nginx-app
-    repoURL: http://argocd-repo-server.argocd.svc.cluster.local
-    targetRevision: 0.1.0
+    path: nginx-app
+    repoURL: git@github.com:AmetDev/task26.git
+    targetRevision: HEAD
     helm:
       releaseName: nginx-app
       values: |
