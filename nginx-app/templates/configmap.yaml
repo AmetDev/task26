@@ -6,9 +6,4 @@ metadata:
     app: nginx-app
 data:
   index.html: |-
-    <!DOCTYPE html>
-    <html>
-    <body>
-      <h1>Hello World!</h1>
-    </body>
-    </html> 
+{{ .Files.Get "static/index.html" | indent 4 }} 
