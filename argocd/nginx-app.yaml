@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     path: nginx-app
-    repoURL: git@github.com:AmetDev/task26.git
+    repoURL: https://github.com/AmetDev/task26.git
     targetRevision: HEAD
     helm:
       releaseName: nginx-app
@@ -19,14 +19,14 @@ spec:
             kubernetes.io/ingress.class: nginx
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
           hosts:
-            - host: nginx.example.com
+            - host: testingargo.zapto.org
               paths:
                 - path: /
                   pathType: Prefix
           tls:
             - secretName: nginx-tls
               hosts:
-                - nginx.example.com
+                - testingargo.zapto.org
   destination:
     server: https://kubernetes.default.svc
     namespace: default
