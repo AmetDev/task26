@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: nginx-app
+    repoURL: http://argocd-repo-server.argocd.svc.cluster.local
+    targetRevision: 0.1.0
+    helm:
+      releaseName: nginx-app
+      values: |
+        ingress:
+          enabled: true
+          className: "nginx"
+          annotations:
+            kubernetes.io/ingress.class: nginx
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          hosts:
+            - host: nginx.example.com
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - secretName: nginx-tls
+              hosts:
+                - nginx.example.com
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true 
